@@ -22,3 +22,19 @@ header {
 	width: 24px;
 	background-image: url('../../assets/unlocked.svg');
 }
+
+.input-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 50px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-around;
+	height: 100px;
+}

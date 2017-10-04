@@ -23,8 +23,9 @@ function setColorCards() {
 
 const lockedIcon = '../assets/locked.svg'
 
-$('.color-card').click(() => console.log($(this).find('.color-card')))
+function toggleLock(e) {
+	console.log('event', e.target.parentNode)
+	$(e.target.parentNode).toggleClass('locked')
+}
 
-// $(this)
-//   .parent()
-//   .addClass('locked')
+$('.lock-icon').click(e => toggleLock(e))

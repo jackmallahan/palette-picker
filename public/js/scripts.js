@@ -2,6 +2,8 @@ $(document).ready(() => setColorCards())
 
 $('.generator-btn').click(() => setColorCards())
 
+$('.lock-icon').click(e => toggleLock(e))
+
 function getRandomColor() {
 	const characters = '0123456789ABCDEF'
 	let hex = '#'
@@ -13,6 +15,9 @@ function getRandomColor() {
 
 function setColorCards() {
 	$('.color-card').each((index, card) => {
+		if ($(card).hasClass('locked')) {
+			return $(card)
+		}
 		let randomCode = getRandomColor()
 		$(card).css('background-color', randomCode)
 		$(card)
@@ -21,11 +26,6 @@ function setColorCards() {
 	})
 }
 
-const lockedIcon = '../assets/locked.svg'
-
 function toggleLock(e) {
-	console.log('event', e.target.parentNode)
 	$(e.target.parentNode).toggleClass('locked')
 }
-
-$('.lock-icon').click(e => toggleLock(e))

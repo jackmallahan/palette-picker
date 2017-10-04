@@ -15,11 +15,20 @@ header {
 	width: 15%;
 	height: 200px;
 	border: 2px solid black;
+	cursor: pointer;
 }
 
 .lock-icon {
 	height: 24px;
 	width: 24px;
+	background-image: url('../../assets/unlocked.svg');
+}
+
+.locked {
+	background: yellow;
+}
+
+.locked .lock-icon {
 	background-image: url('../../assets/unlocked.svg');
 }
 

@@ -1,0 +1,27 @@
+{
+	"name": "palette-picker",
+	"version": "1.0.0",
+	"description": "This is a project using HTML5, CSS3 w/ Flexbox, Express, knex, and PostgreSQL. It is a school project in Mod 4 of Turing School of Software and Design's Front End Engineering program. This site is built following [these](http://frontend.turing.io/projects/palette-picker.html) specifications.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jackmallahan/palette-picker.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/jackmallahan/palette-picker/issues"
+	},
+	"homepage": "https://github.com/jackmallahan/palette-picker#readme",
+	"dependencies": {
+		"body-parser": "^1.18.2",
+		"express": "^4.16.1",
+		"knex": "^0.13.0",
+		"pg": "^7.3.0"
+	}
+}

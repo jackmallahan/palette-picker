@@ -11,8 +11,6 @@ function getRandomColor() {
 	return hex
 }
 
-console.log($('.hex-code').find('h3'))
-
 function setColorCards() {
 	$('.color-card').each((index, card) => {
 		let randomCode = getRandomColor()
@@ -25,8 +23,8 @@ function setColorCards() {
 
 const lockedIcon = '../assets/locked.svg'
 
-$('.lock-icon').click(() =>
-	$('.lock-icon').each((index, card) => {
-		$(card).css('background-image', 'url(' + lockedIcon + ')')
-	})
-)
+$('.color-card').click(() => console.log($(this).find('.color-card')))
+
+// $(this)
+//   .parent()
+//   .addClass('locked')

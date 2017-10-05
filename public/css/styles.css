@@ -15,12 +15,13 @@ header {
 	width: 15%;
 	height: 200px;
 	border: 2px solid black;
-	cursor: pointer;
 }
 
 .lock-icon {
+	display: none;
 	height: 24px;
 	width: 24px;
+	cursor: pointer;
 	background-image: url('../../assets/unlocked.svg');
 }
 
@@ -29,7 +30,21 @@ header {
 }
 
 .locked .lock-icon {
+	display: block;
 	background-image: url('../../assets/locked.svg');
+}
+
+.hex-code {
+	display: none;
+}
+
+.locked .hex-code {
+	display: block;
+}
+
+.color-card:hover .lock-icon,
+.color-card:hover .hex-code {
+	display: block;
 }
 
 .input-container {

@@ -1,4 +1,10 @@
 $(document).ready(() => setColorCards())
+$(document).keyup(e => {
+	console.log(e.keyCode)
+	if (e.keyCode === 32) {
+		setColorCards()
+	}
+})
 
 $('.generator-btn').click(() => setColorCards())
 

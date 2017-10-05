@@ -10,6 +10,7 @@ $(document).keyup(e => {
 })
 
 $('.lock-icon').click(e => toggleLock(e))
+$('.project-btn').click(() => saveProject() )
 
 function getRandomColor() {
 	const characters = '0123456789ABCDEF'
@@ -33,9 +34,6 @@ function setColorCards() {
 	})
 }
 
-
-// style='color:${mappedColor}'
-
 function titleColors() {
   const title = "Palette Picker".split('')
   const colors = ["#092140", "#024959", "#F2C777", "#F24738", "#BF2A2A"]
@@ -51,4 +49,39 @@ function titleColors() {
 
 function toggleLock(e) {
 	$(e.target.parentNode).toggleClass('locked')
+}
+
+
+function saveProject() {
+  const title = $('#project-input').val()
+  postProject(title)
+  $('#project-input').val('')
+}
+
+function postProject(title) {
+  fetch('/api/v1/projects', {
+    method: 'POST',
+    body: JSON.stringify({title}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(response => response.json())
+    .then(data => {
+      console.log('data', data)
+      if(data[0].id){
+        prependProject(title, data[0].id)
+      }
+    })
+    .catch(error => console.log(error))
+}
+
+function prependProject(title, id) {
+  $('.project-container').prepend(`
+    <div class='project ${id}'>
+      <h5>${title}</h5>
+    </div>
+  `)
+  $('.project-drop-down').prepend(`
+    <option value='${id}'>${title}</option>
+  `)
 }

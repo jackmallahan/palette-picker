@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description":
 		"This is a project using HTML5, CSS3 w/ Flexbox, Express, knex, and PostgreSQL. It is a school project in Mod 4 of Turing School of Software and Design's Front End Engineering program. This site is built following [these](http://frontend.turing.io/projects/palette-picker.html) specifications.",
-	"main": "index.js",
+	"main": "knexfile.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node server.js"

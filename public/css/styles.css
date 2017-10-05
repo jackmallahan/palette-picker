@@ -1,5 +1,24 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
 header {
-	text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 5px;
+}
+
+header h1,
+header h4 {
+  margin: 0 5px;
+}
+
+header h4 {
+  color: lightgray;
 }
 
 .card-container {
@@ -12,9 +31,8 @@ header {
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
-	width: 15%;
-	height: 200px;
-	border: 2px solid black;
+	width: 20%;
+	height: 50vh;
 }
 
 .lock-icon {
@@ -47,12 +65,22 @@ header {
 	display: block;
 }
 
+.bottom-container {
+  width: 100%;
+  height: 30vh;
+}
+
+.project-container {
+  
+}
+
 .input-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
 	margin-top: 50px;
+
 }
 
 form {

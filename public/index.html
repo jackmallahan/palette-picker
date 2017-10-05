@@ -2,12 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
     <title>Palette Picker</title>
   </head>
   <body>
     <header>
-      <h1>Palette Picker</h1>
+      <h1>
+        <script type="text/javascript">
+          const message = "Palette Picker";
+          const colors = ["#092140", "#024959", "#F2C777", "#F24738", "#BF2A2A"]
+          for (var i = 0; i < message.length; i++)
+            document.write("<span class='picker' style=\"color:" + colors[(i % colors.length)] + ";\">" + message[i] + "</span>");
+        </script>
+      </h1>
+      <h4>Hit the [ Spacebar ] to Generate a Palette!</h4>
     </header>
 
     <section class='card-container'>
@@ -33,8 +42,10 @@
       </div>
     </section>
 
-    <section class="input-container">
-      <button class="generator-btn">Generate a New Color Palette</button>
+    <section class="botttom-container">
+      <article class="project-container">
+      </article>
+      <article class="input-container">
       <form>
         <div class="form-top">
           <select>
@@ -49,11 +60,10 @@
           <button name="project-btn">Save Project</button>
         </div>
       </form>
+    </article>
+    <article class='secondary-container'>
+    </article>
     </section>
-
-    <section class="project-container">
-    </section>
-
 
   </body>
   <footer>

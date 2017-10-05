@@ -12,6 +12,7 @@ $(document).keyup(e => {
 
 $('.lock-icon').click(e => toggleLock(e));
 $('.project-btn').click(() => saveProject());
+$('.palette-btn').click(() => createPalette());
 
 function getRandomColor() {
 	const characters = '0123456789ABCDEF';
@@ -92,7 +93,65 @@ function prependProject(name, id) {
       <h5>${name}</h5>
     </div>
   `);
+
 	$('.project-drop-down').prepend(`
     <option value='${id}'>${name}</option>
   `);
+}
+
+function createPalette() {
+	const paletteName = $('#palette-input').val();
+	const projectId = $('.project-drop-down').val();
+	console.log('projectId', projectId);
+	const colorArray = [];
+
+	$('.hex-code').each((i, colorCode) => {
+		colorArray.push($(colorCode).text());
+	});
+
+	postPalette(paletteName, colorArray, projectId);
+	$('#palette-input').val('');
+}
+
+function postPalette(paletteName, colorArray, projectId) {
+	fetch('/api/v1/palettes', {
+		method: 'POST',
+		body: JSON.stringify({
+			name: paletteName,
+			color1: colorArray[0],
+			color2: colorArray[1],
+			color3: colorArray[2],
+			color4: colorArray[3],
+			color5: colorArray[4],
+			projectId
+		}),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(response => response.json())
+		.then(data => {
+			console.log('data in palette', data);
+			return appendPalette(paletteName, colorArray, projectId, data[0].id);
+		})
+		.catch(error => console.log(error));
+}
+
+function appendPalette(paletteName, colorArray, projectId, paletteId) {
+	$(`.${projectId}`).append(`
+    <article class='palette ${paletteId}'>
+      <div class="palette-info">
+        <p>${paletteName}</p>
+        <button class='delete-btn'></button>
+      </div>
+      <section class="palette-display">
+        <div class="palette-color ${paletteId}" color='${colorArray[0]}'></div>
+        <div class="palette-color ${paletteId}" color='${colorArray[1]}'></div>
+        <div class="palette-color ${paletteId}" color='${colorArray[2]}'></div>
+        <div class="palette-color ${paletteId}" color='${colorArray[3]}'></div>
+        <div class="palette-color ${paletteId}" color='${colorArray[4]}'></div>
+      </section>
+    </article>
+  `);
+	$(`div.${paletteId}`).each((i, div) => $(div).css('backgroundColor', colorArray[i]));
 }

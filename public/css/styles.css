@@ -85,3 +85,20 @@ header h4 {
 	align-items: center;
 	justify-content: space-around;
 }
+
+.project {
+	width: 20%;
+	height: 25px;
+}
+
+.palette-display {
+	border: none;
+	display: flex;
+	height: 50%;
+	width: 100%;
+}
+
+.palette-color {
+	height: 20px;
+	width: 20px;
+}

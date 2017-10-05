@@ -1,4 +1,8 @@
-$(document).ready(() => setColorCards())
+$(document).ready(() => {
+  titleColors()
+  setColorCards()
+})
+
 $(document).keyup(e => {
 	if (e.keyCode === 32) {
 		setColorCards()
@@ -27,6 +31,22 @@ function setColorCards() {
 			.find('h3')
 			.text(randomCode)
 	})
+}
+
+
+// style='color:${mappedColor}'
+
+function titleColors() {
+  const title = "Palette Picker".split('')
+  const colors = ["#092140", "#024959", "#F2C777", "#F24738", "#BF2A2A"]
+  title.forEach((letter, i) => {
+    let mappedColor = colors[i % colors.length];
+    $('.title').append(`
+      <span class='letter' style='color:${mappedColor}'>
+      ${title[i]}
+      </span>
+    `);
+  })
 }
 
 function toggleLock(e) {

@@ -1,87 +1,98 @@
 $(document).ready(() => {
-  titleColors()
-  setColorCards()
-})
+	titleColors();
+	setColorCards();
+	showProjects();
+});
 
 $(document).keyup(e => {
 	if (e.keyCode === 32) {
-		setColorCards()
+		setColorCards();
 	}
-})
+});
 
-$('.lock-icon').click(e => toggleLock(e))
-$('.project-btn').click(() => saveProject() )
+$('.lock-icon').click(e => toggleLock(e));
+$('.project-btn').click(() => saveProject());
 
 function getRandomColor() {
-	const characters = '0123456789ABCDEF'
-	let hex = '#'
+	const characters = '0123456789ABCDEF';
+	let hex = '#';
 	for (let i = 0; i < 6; i++) {
-		hex += characters[Math.floor(Math.random() * 16)]
+		hex += characters[Math.floor(Math.random() * 16)];
 	}
-	return hex
+	return hex;
 }
 
 function setColorCards() {
 	$('.color-card').each((index, card) => {
 		if ($(card).hasClass('locked')) {
-			return $(card)
+			return $(card);
 		}
-		let randomCode = getRandomColor()
-		$(card).css('background-color', randomCode)
+		let randomCode = getRandomColor();
+		$(card).css('background-color', randomCode);
 		$(card)
 			.find('h3')
-			.text(randomCode)
-	})
+			.text(randomCode);
+	});
 }
 
 function titleColors() {
-  const title = "Palette Picker".split('')
-  const colors = ["#092140", "#024959", "#F2C777", "#F24738", "#BF2A2A"]
-  title.forEach((letter, i) => {
-    let mappedColor = colors[i % colors.length];
-    $('.title').append(`
+	const title = 'Palette Picker'.split('');
+	const colors = [];
+
+	title.forEach((letter, i) => {
+		let randomCode = getRandomColor();
+		colors.push(randomCode);
+		let mappedColor = colors[i % colors.length];
+		$('.title').append(`
       <span class='letter' style='color:${mappedColor}'>
       ${title[i]}
       </span>
     `);
-  })
+	});
 }
 
 function toggleLock(e) {
-	$(e.target.parentNode).toggleClass('locked')
+	$(e.target.parentNode).toggleClass('locked');
 }
-
 
 function saveProject() {
-  const title = $('#project-input').val()
-  postProject(title)
-  $('#project-input').val('')
+	const name = $('#project-input').val();
+	$('#project-input').val('');
+	console.log('name', name);
+
+	fetch('/api/v1/projects', {
+		method: 'POST',
+		body: JSON.stringify({ name: name }),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+		.then(response => response.json())
+		.then(data => {
+			console.log('data', data);
+			if (data[0].id) {
+				prependProject(name, data[0].id);
+			}
+		})
+		.catch(error => console.log(error));
 }
 
-function postProject(title) {
-  fetch('/api/v1/projects', {
-    method: 'POST',
-    body: JSON.stringify({title}),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(response => response.json())
-    .then(data => {
-      console.log('data', data)
-      if(data[0].id){
-        prependProject(title, data[0].id)
-      }
-    })
-    .catch(error => console.log(error))
+function showProjects() {
+	fetch('/api/v1/projects')
+		.then(response => response.json())
+		.then(data => {
+			data.forEach(project => prependProject(project.name, project.id));
+		})
+		.catch(error => console.log(error));
 }
 
-function prependProject(title, id) {
-  $('.project-container').prepend(`
+function prependProject(name, id) {
+	$('.project-container').prepend(`
     <div class='project ${id}'>
-      <h5>${title}</h5>
+      <h5>${name}</h5>
     </div>
-  `)
-  $('.project-drop-down').prepend(`
-    <option value='${id}'>${title}</option>
-  `)
+  `);
+	$('.project-drop-down').prepend(`
+    <option value='${id}'>${name}</option>
+  `);
 }

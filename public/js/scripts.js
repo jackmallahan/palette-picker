@@ -1,6 +1,7 @@
 $(document).ready(() => {
 	titleColors();
 	setColorCards();
+	showProjects();
 });
 
 $(document).keyup(e => {
@@ -72,6 +73,15 @@ function saveProject() {
 			if (data[0].id) {
 				prependProject(name, data[0].id);
 			}
+		})
+		.catch(error => console.log(error));
+}
+
+function showProjects() {
+	fetch('/api/v1/projects')
+		.then(response => response.json())
+		.then(data => {
+			data.forEach(project => prependProject(project.name, project.id));
 		})
 		.catch(error => console.log(error));
 }

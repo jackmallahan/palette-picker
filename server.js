@@ -21,20 +21,20 @@ app.get('/api/v1/projects', (request, response) => {
 });
 
 app.post('/api/v1/projects', (request, response) => {
-  const title = request.body;
-  console.log(title)
+  const name = request.body;
+  console.log(name)
 
-  for (let requiredParameter of ['title']) {
-    if (!title[requiredParameter]) {
+  for (let requiredParameter of ['name']) {
+    if (!name[requiredParameter]) {
       return response
         .status(422)
-        .send({ error: `You must include a title for your project` });
+        .send({ error: `You must include a name for your project` });
     }
   }
 
-  database('projects').insert(title, 'id')
-    .then(project => {
-      response.status(201).json({ id: title[0] })
+  database('projects').insert(name, 'id')
+    .then(name => {
+      response.status(201).json({ id: name[0] })
     })
     .catch(error => {
       response.status(500).json({ error });

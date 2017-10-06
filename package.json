@@ -1,7 +1,8 @@
 {
 	"name": "palette-picker",
 	"version": "1.0.0",
-	"description": "This is a project using HTML5, CSS3 w/ Flexbox, Express, knex, and PostgreSQL. It is a school project in Mod 4 of Turing School of Software and Design's Front End Engineering program. This site is built following [these](http://frontend.turing.io/projects/palette-picker.html) specifications.",
+	"description":
+		"This is a project using HTML5, CSS3 w/ Flexbox, Express, knex, and PostgreSQL. It is a school project in Mod 4 of Turing School of Software and Design's Front End Engineering program. This site is built following [these](http://frontend.turing.io/projects/palette-picker.html) specifications.",
 	"main": "knexfile.js",
 	"scripts": {
 		"test": "NODE_ENV=test PORT=3001 mocha",
@@ -20,9 +21,12 @@
 	"homepage": "https://github.com/jackmallahan/palette-picker#readme",
 	"dependencies": {
 		"body-parser": "^1.18.2",
+		"chai": "^4.1.2",
+		"chai-http": "^3.0.0",
 		"express": "^4.16.1",
 		"knex": "^0.13.0",
 		"md5": "^2.2.1",
+		"mocha": "^4.0.1",
 		"pg": "^7.3.0"
 	}
 }

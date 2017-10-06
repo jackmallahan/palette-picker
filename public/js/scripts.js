@@ -14,7 +14,8 @@ $(document).keyup(e => {
 $('.lock-icon').click(e => toggleLock(e));
 $('.project-btn').click(() => saveProject());
 $('.palette-btn').click(() => createPalette());
-$('.project-container').click('.delete-btn', e => deletePalette(e));
+$('.project-container').click('article.palette-display', e => changeTopPalette(e));
+$('.project-container').click('article.delete-btn', e => deletePalette(e));
 
 function getRandomColor() {
 	const characters = '0123456789ABCDEF';
@@ -59,10 +60,11 @@ function toggleLock(e) {
 }
 
 function saveProject() {
-	const name = $('#project-input').val();
-	$('#project-input')
-		.val('')
+	const name = $('#project-input')
+		.val()
 		.toUpperCase();
+	console.log(name);
+	$('#project-input').val('');
 	console.log('name', name);
 
 	fetch('/api/v1/projects', {
@@ -184,4 +186,19 @@ function deletePalette(e) {
 	})
 		.then(() => $(`.${paletteId}`).remove())
 		.catch(error => console.log(error));
+}
+
+function changeTopPalette(e) {
+	const paletteArray = $(e.target)
+		.parents('.palette')
+		.find('.palette-color');
+	console.log('paletteArray', paletteArray);
+
+	paletteArray.each((i, color) => {
+		const hex = $(color).attr('color');
+		const topPalette = $('.color-card')[i];
+		const hexText = $('.hex-code')[i];
+		$(topPalette).css('backgroundColor', hex);
+		$(hexText).text(hex);
+	});
 }

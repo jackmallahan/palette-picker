@@ -23,19 +23,6 @@ function getRandomColor() {
 	return hex;
 }
 
-function setColorCards() {
-	$('.color-card').each((index, card) => {
-		if ($(card).hasClass('locked')) {
-			return $(card);
-		}
-		let randomCode = getRandomColor();
-		$(card).css('background-color', randomCode);
-		$(card)
-			.find('h3')
-			.text(randomCode);
-	});
-}
-
 function titleColors() {
 	const title = 'Palette Picker'.split('');
 	const colors = [];
@@ -48,7 +35,20 @@ function titleColors() {
       <span class='letter' style='color:${mappedColor}'>
       ${title[i]}
       </span>
-    `);
+      `);
+	});
+}
+
+function setColorCards() {
+	$('.color-card').each((index, card) => {
+		if ($(card).hasClass('locked')) {
+			return $(card);
+		}
+		let randomCode = getRandomColor();
+		$(card).css('background-color', randomCode);
+		$(card)
+			.find('h3')
+			.text(randomCode);
 	});
 }
 
@@ -83,6 +83,7 @@ function showProjects() {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(project => prependProject(project.name, project.id));
+			return showPalettes();
 		})
 		.catch(error => console.log(error));
 }
@@ -109,11 +110,11 @@ function createPalette() {
 		colorArray.push($(colorCode).text());
 	});
 
-	postPalette(paletteName, colorArray, projectId);
+	savePalette(paletteName, colorArray, projectId);
 	$('#palette-input').val('');
 }
 
-function postPalette(paletteName, colorArray, projectId) {
+function savePalette(paletteName, colorArray, projectId) {
 	fetch('/api/v1/palettes', {
 		method: 'POST',
 		body: JSON.stringify({
@@ -137,20 +138,32 @@ function postPalette(paletteName, colorArray, projectId) {
 		.catch(error => console.log(error));
 }
 
+function showPalettes() {
+	fetch('/api/v1/palettes')
+		.then(response => response.json())
+		.then(data => {
+			data.forEach(palette => {
+				const colorArray = [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5];
+				return appendPalette(palette.name, colorArray, palette.projectId, palette.id);
+			});
+		})
+		.catch(error => console.log(error));
+}
+
 function appendPalette(paletteName, colorArray, projectId, paletteId) {
 	$(`.${projectId}`).append(`
     <article class='palette ${paletteId}'>
-      <div class="palette-info">
+      <div class="palette-name">
         <p>${paletteName}</p>
-        <button class='delete-btn'></button>
       </div>
-      <section class="palette-display">
+      <div class="palette-display">
         <div class="palette-color ${paletteId}" color='${colorArray[0]}'></div>
         <div class="palette-color ${paletteId}" color='${colorArray[1]}'></div>
         <div class="palette-color ${paletteId}" color='${colorArray[2]}'></div>
         <div class="palette-color ${paletteId}" color='${colorArray[3]}'></div>
         <div class="palette-color ${paletteId}" color='${colorArray[4]}'></div>
-      </section>
+      </div>
+      <button class='delete-btn'></button>
     </article>
   `);
 	$(`div.${paletteId}`).each((i, div) => $(div).css('backgroundColor', colorArray[i]));

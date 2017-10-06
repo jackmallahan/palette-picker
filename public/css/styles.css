@@ -86,9 +86,19 @@ header h4 {
 	justify-content: space-around;
 }
 
+.project-container {
+	overflow: scroll;
+	display: flex;
+	flex-wrap: wrap;
+	height: 20%;
+}
+
 .project {
 	width: 20%;
-	height: 25px;
+}
+
+.project {
+	margin: 0;
 }
 
 .palette-display {

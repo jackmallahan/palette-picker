@@ -65,10 +65,49 @@ header h4 {
 	display: block;
 }
 
-.form-top {
+.input-container {
 	display: flex;
+	justify-content: center;
 	align-items: center;
-	justify-content: space-around;
+	height: 10vh;
+	width: 50%;
+	margin: auto;
+}
+
+.add-palette,
+.add-project {
+	display: flex;
+	margin: 0 10px;
+}
+
+.input-container input,
+.input-container select {
+	border: 1px solid #009ac9;
+	border-radius: 3px;
+	font-size: 12px;
+	padding: 2.5px 5px;
+	margin: 0 2.5px;
+}
+
+.save-btn {
+	margin: 0 auto;
+	font-size: 12px;
+	padding: 2.5px 5px;
+	margin: 0 2.5px;
+	display: block;
+	background-color: #009ac9;
+	border: 1px solid transparent;
+	color: #ffffff;
+	font-weight: 300;
+	border-radius: 3px;
+	transition: all 0.3s ease-in-out;
+	cursor: pointer;
+}
+
+.save-btn:hover {
+	background-color: #ffffff;
+	color: #009ac9;
+	border-color: #009ac9;
 }
 
 .project-container {
@@ -76,7 +115,7 @@ header h4 {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	height: 40vh;
+	height: 30vh;
 }
 
 .project {
@@ -89,6 +128,7 @@ header h4 {
 .project h5,
 .project p {
 	margin: 5px 0;
+	font-weight: 300;
 }
 
 .project h5 {

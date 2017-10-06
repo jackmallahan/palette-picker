@@ -10,17 +10,7 @@
     <header>
       <h1 class="title">
       </h1>
-      <div class="form-top">
-        <input type="text" id="palette-input" placeholder="Palette Name">
-        <select class='project-drop-down'>
-          <option value="" selected="selected">Add to Project</option>
-        </select>
-        <button class="palette-btn">Save Palette</button>
-      </div>
-      <div class="form-bottom">
-        <input type="text" id="project-input" placeholder="Project Name">
-        <button class="project-btn">Save Project</button>
-      </div>
+
       <h4>Hit the [ Spacebar ] to Generate a Palette!</h4>
     </header>
 
@@ -46,7 +36,19 @@
         <h3 class="hex-code" class='hex-value'></h3>
       </div>
     </section>
-
+    <section class='input-container'>
+      <div class='add-palette'>
+        <input type="text" id="palette-input" placeholder="Palette Name">
+        <select class='project-drop-down'>
+          <option value="" selected="selected">Add to Project</option>
+        </select>
+        <button class="palette-btn save-btn">Save Palette</button>
+      </div>
+      <div class='add-project'>
+        <input type="text" id="project-input" placeholder="Project Name">
+        <button class="project-btn save-btn">Save Project</button>
+      </div>
+    </section>
   <section class='project-container'>
   </section>
 

@@ -65,7 +65,7 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
 	database('palettes')
 		.where(id)
 		.del()
-		.then(deleted => (!deleted ? response.status(422).json({ error: 'Palette not Found' }) : response.sendStatus(204)))
+		.then(deleted => (!deleted ? response.status(422).json({ error: 'Palette not Found' }) : response.sendStatus()))
 		.catch(error => response.status(500).json({ error }));
 });
 

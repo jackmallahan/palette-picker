@@ -14,7 +14,7 @@ $(document).keyup(e => {
 $('.lock-icon').click(e => toggleLock(e));
 $('.project-btn').click(() => saveProject());
 $('.palette-btn').click(() => createPalette());
-$(document).click('.delete-btn', e => deletePalette(e));
+$('.project-container').click('.delete-btn', e => deletePalette(e));
 
 function getRandomColor() {
 	const characters = '0123456789ABCDEF';
@@ -60,7 +60,9 @@ function toggleLock(e) {
 
 function saveProject() {
 	const name = $('#project-input').val();
-	$('#project-input').val('');
+	$('#project-input')
+		.val('')
+		.toUpperCase();
 	console.log('name', name);
 
 	fetch('/api/v1/projects', {
@@ -103,7 +105,9 @@ function prependProject(name, id) {
 }
 
 function createPalette() {
-	const paletteName = $('#palette-input').val();
+	const paletteName = $('#palette-input')
+		.val()
+		.toUpperCase();
 	const projectId = $('.project-drop-down').val();
 	console.log('projectId', projectId);
 	const colorArray = [];

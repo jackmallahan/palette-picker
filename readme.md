@@ -4,47 +4,30 @@ This is a project using HTML5, CSS3 w/ Flexbox, Express, knex, and PostgreSQL. I
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
+All dependencies are included in the package.json, run
 
 ```
-Give examples
+npm install
 ```
 
-### Installing
-
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+and you should be good to go!
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+This app is deployed as a [Heroku App](https://jacks-palette-picker.herokuapp.com/)
 
 ## Built With
 
+* [jQuery](http://jquery.com/)
+* [NodeJs](https://nodejs.org/en/)
+* [ExpressJs](https://expressjs.com/)
+* [knexJs](http://knexjs.org/)
+* [postgreSQL](https://www.postgresql.org/)
 
 ## Author
 
 **[Jack Mallahan](https://github.com/jackmallahan)**
 
-<!-- ## Acknowledgments
+## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc -->
+* Special thanks to everyone in 1705 for their help with this especially @kalikoze @jbexx and @davidbecker6081

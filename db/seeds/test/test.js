@@ -49,45 +49,23 @@ let projectsData = [
 ];
 
 const createProject = (knex, project) => {
-	return knex('projects')
+  // Deletes ALL existing entries
+return knex('table_name').del().then(() => knex('projects'))
 		.insert({
-			project_Name: project.project_Name,
+			projectName: project.name,
 			id: project.id
 		})
 		.then(() => {
 			let palettePromises = [];
 
 			project.palettes.forEach(palette => {
-				palettePromises.push(createPalette(knex, palette));
+				palettePromises.push(addPalette(knex, palette));
 			});
 
 			return Promise.all(palettePromises);
 		});
 };
 
-const createPalette = (knex, palette) => {
+const addPalette = (knex, palette) => {
 	return knex('palettes').insert(palette);
-};
-
-exports.seed = function(knex, Promise) {
-	// Deletes ALL existing entries
-	return knex('palettes')
-		.del()
-		.then(() => knex('projects').del())
-		.then(() => {
-			// Inserts seed entries
-			let projectPromises = [];
-
-			projectsData.forEach(project => {
-				projectPromises.push(createProject(knex, project));
-			});
-
-			return Promise.all(projectPromises);
-		})
-		.then(() => {
-			console.log('Seeding is complete');
-		})
-		.catch(error => {
-			console.log(`Error seeding data: ${error}`);
-		});
 };

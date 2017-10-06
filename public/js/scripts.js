@@ -14,8 +14,8 @@ $(document).keyup(e => {
 $('.lock-icon').click(e => toggleLock(e));
 $('.project-btn').click(() => saveProject());
 $('.palette-btn').click(() => createPalette());
-$('.project-container').click('.delete-btn', e => deletePalette(e));
-$('.project-container').on('click', 'article.palette', e => changeTopPalette(e));
+$('.project-container').click('article.palette-display', e => changeTopPalette(e));
+$('.project-container').click('article.delete-btn', e => deletePalette(e));
 
 function getRandomColor() {
 	const characters = '0123456789ABCDEF';
@@ -60,10 +60,11 @@ function toggleLock(e) {
 }
 
 function saveProject() {
-	const name = $('#project-input').val();
-	$('#project-input')
-		.val('')
+	const name = $('#project-input')
+		.val()
 		.toUpperCase();
+	console.log(name);
+	$('#project-input').val('');
 	console.log('name', name);
 
 	fetch('/api/v1/projects', {

@@ -154,6 +154,7 @@ header h4 {
 .palette-color {
 	height: 20px;
 	width: 20%;
+	cursor: pointer;
 }
 
 .delete-btn {

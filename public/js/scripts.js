@@ -14,7 +14,7 @@ $(document).keyup(e => {
 $('.lock-icon').click(e => toggleLock(e));
 $('.project-btn').click(() => saveProject());
 $('.palette-btn').click(() => createPalette());
-$(document).on('click', '.delete-btn', e => deletePalette(e));
+$(document).click('.delete-btn', e => deletePalette(e));
 
 function getRandomColor() {
 	const characters = '0123456789ABCDEF';

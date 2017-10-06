@@ -40,12 +40,10 @@ app.post('/api/v1/projects', (request, response) => {
 app.post('/api/v1/palettes', (request, response) => {
 	const palette = request.body;
 
-	for (let requiredParameter of ['name', 'color1', 'color2', 'color3', 'color4', 'color5', 'projectId']) {
-		if (!palette[requiredParameter]) {
-			return response.status(422).send({
-				error: `Expected format: { name: <String>, color1: <String>, 'color2': <String>, 'color3': <String>, 'color4': <String>, 'color5', 'projectId': <Integer> }. You're missing a ${requiredParameter} property.`
-			});
-		}
+	if (!palette.name && !palette.projectId) {
+		return response.status(422).send({
+			error: 'You must include a name for your palette and select a project to add it to'
+		});
 	}
 
 	database('palettes')
@@ -58,6 +56,16 @@ app.get('/api/v1/palettes', (request, response) => {
 	database('palettes')
 		.select()
 		.then(palette => response.status(200).json(palette))
+		.catch(error => response.status(500).json({ error }));
+});
+
+app.delete('/api/v1/palettes/:id', (request, response) => {
+	const id = request.params;
+
+	database('palettes')
+		.where(id)
+		.del()
+		.then(deleted => (!deleted ? response.status(422).json({ error: 'Palette not Found' }) : response.sendStatus(204)))
 		.catch(error => response.status(500).json({ error }));
 });
 

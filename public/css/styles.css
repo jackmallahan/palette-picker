@@ -35,13 +35,6 @@ header h4 {
 	height: 50vh;
 }
 
-/*.hover-container {
-  display: none;
-  height: 50px;
-  width: 75px;
-  background-color: rgba(255, 0, 0, 0.5);
-}*/
-
 .lock-icon {
 	display: none;
 	height: 24px;
@@ -72,14 +65,6 @@ header h4 {
 	display: block;
 }
 
-.input-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-	margin-top: 25px;
-}
-
 .form-top {
 	display: flex;
 	align-items: center;
@@ -90,19 +75,37 @@ header h4 {
 	overflow: scroll;
 	display: flex;
 	flex-wrap: wrap;
-	height: 20%;
+	justify-content: space-around;
+	height: 40vh;
 }
 
 .project {
-	width: 20%;
+	width: 33%;
+	margin: 10px 0;
+	padding-bottom: 10px;
+	border-bottom: 1px solid black;
 }
 
-.project {
-	margin: 0;
+.project h5,
+.project p {
+	margin: 5px 0;
+}
+
+.project h5 {
+	font-size: 24px;
+}
+
+.project p {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.palette {
+	width: 100%;
 }
 
 .palette-display {
-	border: none;
 	display: flex;
 	height: 50%;
 	width: 100%;
@@ -110,5 +113,12 @@ header h4 {
 
 .palette-color {
 	height: 20px;
-	width: 20px;
+	width: 20%;
+}
+
+.delete-btn {
+	background-image: url('../assets/delete.svg');
+	height: 16px;
+	width: 16px;
+	cursor: pointer;
 }

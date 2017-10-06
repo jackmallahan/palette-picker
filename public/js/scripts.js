@@ -5,7 +5,8 @@ $(document).ready(() => {
 });
 
 $(document).keyup(e => {
-	if (e.keyCode === 32) {
+	if (e.keyCode === 32 && !$('input').is(':focus')) {
+		e.preventDefault();
 		setColorCards();
 	}
 });
@@ -13,6 +14,7 @@ $(document).keyup(e => {
 $('.lock-icon').click(e => toggleLock(e));
 $('.project-btn').click(() => saveProject());
 $('.palette-btn').click(() => createPalette());
+$(document).click('.delete-btn', e => deletePalette(e));
 
 function getRandomColor() {
 	const characters = '0123456789ABCDEF';
@@ -154,7 +156,7 @@ function appendPalette(paletteName, colorArray, projectId, paletteId) {
 	$(`.${projectId}`).append(`
     <article class='palette ${paletteId}'>
       <div class="palette-name">
-        <p>${paletteName}</p>
+        <p>${paletteName}<span class='delete-btn'></span></p>
       </div>
       <div class="palette-display">
         <div class="palette-color ${paletteId}" color='${colorArray[0]}'></div>
@@ -163,8 +165,19 @@ function appendPalette(paletteName, colorArray, projectId, paletteId) {
         <div class="palette-color ${paletteId}" color='${colorArray[3]}'></div>
         <div class="palette-color ${paletteId}" color='${colorArray[4]}'></div>
       </div>
-      <button class='delete-btn'></button>
     </article>
   `);
 	$(`div.${paletteId}`).each((i, div) => $(div).css('backgroundColor', colorArray[i]));
+}
+
+function deletePalette(e) {
+	const paletteId = $(e.target.parentNode.parentNode.parentNode)
+		.attr('class')
+		.split(' ')[1];
+
+	fetch(`/api/v1/palettes/${paletteId}`, {
+		method: 'DELETE'
+	})
+		.then(() => $(`.${paletteId}`).remove())
+		.catch(error => console.log(error));
 }

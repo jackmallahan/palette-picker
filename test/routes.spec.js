@@ -224,7 +224,7 @@ describe('API Routes', () => {
 	})
 
 	describe('DELETE /api/v1/palettes/:id', () => {
-		it('should delete a palette', done => {
+		it.skip('should delete a palette', done => {
 			chai
 				.request(server)
 				.delete('/api/v1/palettes/1')

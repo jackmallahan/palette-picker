@@ -36,8 +36,7 @@ describe('Client Routes', () => {
 describe('API Routes', () => {
 	before(done => {
 		database.migrate
-			.rollback()
-			.then(() => database.migrate.latest())
+			.latest()
 			.then(() => done())
 			.catch(error => console.log(error))
 	})

@@ -1,7 +1,7 @@
 exports.seed = (knex, Promise) => {
-	return knex('projects')
+	return knex('palettes')
 		.del()
-		.then(() => knex('palettes').del())
+		.then(() => knex('projects').del())
 		.then(() => {
 			return Promise.all([
 				knex('projects')
@@ -16,7 +16,7 @@ exports.seed = (knex, Promise) => {
 						return knex('palettes').insert([
 							{
 								id: 1,
-								name: 'Please',
+								name: 'White',
 								color1: '#ffffff',
 								color2: '#ffffff',
 								color3: '#ffffff',
@@ -26,7 +26,7 @@ exports.seed = (knex, Promise) => {
 							},
 							{
 								id: 2,
-								name: 'WORK',
+								name: 'Black',
 								color1: '#000000',
 								color2: '#000000',
 								color3: '#000000',

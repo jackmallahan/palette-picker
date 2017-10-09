@@ -1,71 +1,71 @@
 $(document).ready(() => {
-	titleColors();
-	setColorCards();
-	showProjects();
-});
+	titleColors()
+	setColorCards()
+	showProjects()
+})
 
 $(document).keyup(e => {
 	if (e.keyCode === 32 && !$('input').is(':focus')) {
-		e.preventDefault();
-		setColorCards();
+		e.preventDefault()
+		setColorCards()
 	}
-});
+})
 
-$('.lock-icon').click(e => toggleLock(e));
-$('.project-btn').click(() => saveProject());
-$('.palette-btn').click(() => createPalette());
-$('.project-container').on('click', '.palette-display', e => changeTopPalette(e));
-$('.project-container').on('click', 'article p', 'delete-btn', e => deletePalette(e));
+$('.lock-icon').click(e => toggleLock(e))
+$('.project-btn').click(() => saveProject())
+$('.palette-btn').click(() => createPalette())
+$('.project-container').on('click', '.palette-display', e => changeTopPalette(e))
+$('.project-container').on('click', 'article p', 'delete-btn', e => deletePalette(e))
 
 function getRandomColor() {
-	const characters = '0123456789ABCDEF';
-	let hex = '#';
+	const characters = '0123456789ABCDEF'
+	let hex = '#'
 	for (let i = 0; i < 6; i++) {
-		hex += characters[Math.floor(Math.random() * 16)];
+		hex += characters[Math.floor(Math.random() * 16)]
 	}
-	return hex;
+	return hex
 }
 
 function titleColors() {
-	const title = 'Palette Picker'.split('');
-	const colors = [];
+	const title = 'Palette Picker'.split('')
+	const colors = []
 
 	title.forEach((letter, i) => {
-		let randomCode = getRandomColor();
-		colors.push(randomCode);
-		let mappedColor = colors[i % colors.length];
+		let randomCode = getRandomColor()
+		colors.push(randomCode)
+		let mappedColor = colors[i % colors.length]
 		$('.title').append(`
       <span class='letter' style='color:${mappedColor}'>
       ${title[i]}
       </span>
-      `);
-	});
+      `)
+	})
 }
 
 function setColorCards() {
 	$('.color-card').each((index, card) => {
 		if ($(card).hasClass('locked')) {
-			return $(card);
+			return $(card)
 		}
-		let randomCode = getRandomColor();
-		$(card).css('background-color', randomCode);
+		let randomCode = getRandomColor()
+		$(card).css('background-color', randomCode)
 		$(card)
 			.find('h3')
-			.text(randomCode);
-	});
+			.text(randomCode)
+	})
 }
 
 function toggleLock(e) {
-	$(e.target.parentNode).toggleClass('locked');
+	$(e.target.parentNode).toggleClass('locked')
 }
 
 function saveProject() {
 	const name = $('#project-input')
 		.val()
-		.toUpperCase();
-	console.log(name);
-	$('#project-input').val('');
-	console.log('name', name);
+		.toUpperCase()
+	console.log(name)
+	$('#project-input').val('')
+	console.log('name', name)
 
 	fetch('/api/v1/projects', {
 		method: 'POST',
@@ -76,22 +76,22 @@ function saveProject() {
 	})
 		.then(response => response.json())
 		.then(data => {
-			console.log('data', data);
+			console.log('data', data)
 			if (data[0].id) {
-				prependProject(name, data[0].id);
+				prependProject(name, data[0].id)
 			}
 		})
-		.catch(error => console.log(error));
+		.catch(error => console.log(error))
 }
 
 function showProjects() {
 	fetch('/api/v1/projects')
 		.then(response => response.json())
 		.then(data => {
-			data.forEach(project => prependProject(project.name, project.id));
-			return showPalettes();
+			data.forEach(project => prependProject(project.name, project.id))
+			return showPalettes()
 		})
-		.catch(error => console.log(error));
+		.catch(error => console.log(error))
 }
 
 function prependProject(name, id) {
@@ -99,27 +99,26 @@ function prependProject(name, id) {
     <div class='project ${id}'>
       <h5>${name}</h5>
     </div>
-  `);
+  `)
 
 	$('.project-drop-down').prepend(`
     <option value='${id}'>${name}</option>
-  `);
+  `)
 }
 
 function createPalette() {
 	const paletteName = $('#palette-input')
 		.val()
-		.toUpperCase();
-	const projectId = $('.project-drop-down').val();
-	console.log('projectId', projectId);
-	const colorArray = [];
+		.toUpperCase()
+	const projectId = $('.project-drop-down').val()
+	const colorArray = []
 
 	$('.hex-code').each((i, colorCode) => {
-		colorArray.push($(colorCode).text());
-	});
+		colorArray.push($(colorCode).text())
+	})
 
-	savePalette(paletteName, colorArray, projectId);
-	$('#palette-input').val('');
+	savePalette(paletteName, colorArray, projectId)
+	$('#palette-input').val('')
 }
 
 function savePalette(paletteName, colorArray, projectId) {
@@ -140,10 +139,10 @@ function savePalette(paletteName, colorArray, projectId) {
 	})
 		.then(response => response.json())
 		.then(data => {
-			console.log('data in palette', data);
-			return appendPalette(paletteName, colorArray, projectId, data[0].id);
+			console.log('data in palette', data)
+			return appendPalette(paletteName, colorArray, projectId, data[0].id)
 		})
-		.catch(error => console.log(error));
+		.catch(error => console.log(error))
 }
 
 function showPalettes() {
@@ -151,11 +150,11 @@ function showPalettes() {
 		.then(response => response.json())
 		.then(data => {
 			data.forEach(palette => {
-				const colorArray = [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5];
-				return appendPalette(palette.name, colorArray, palette.projectId, palette.id);
-			});
+				const colorArray = [palette.color1, palette.color2, palette.color3, palette.color4, palette.color5]
+				return appendPalette(palette.name, colorArray, palette.projectId, palette.id)
+			})
 		})
-		.catch(error => console.log(error));
+		.catch(error => console.log(error))
 }
 
 function appendPalette(paletteName, colorArray, projectId, paletteId) {
@@ -172,33 +171,33 @@ function appendPalette(paletteName, colorArray, projectId, paletteId) {
         <div class="palette-color ${paletteId}" color='${colorArray[4]}'></div>
       </div>
     </article>
-  `);
-	$(`div.${paletteId}`).each((i, div) => $(div).css('backgroundColor', colorArray[i]));
+  `)
+	$(`div.${paletteId}`).each((i, div) => $(div).css('backgroundColor', colorArray[i]))
 }
 
 function deletePalette(e) {
 	const paletteId = $(e.target.parentNode.parentNode.parentNode)
 		.attr('class')
-		.split(' ')[1];
+		.split(' ')[1]
 
 	fetch(`/api/v1/palettes/${paletteId}`, {
 		method: 'DELETE'
 	})
 		.then(() => $(`.${paletteId}`).remove())
-		.catch(error => console.log(error));
+		.catch(error => console.log(error))
 }
 
 function changeTopPalette(e) {
 	const paletteArray = $(e.target)
 		.parents('.palette')
-		.find('.palette-color');
-	console.log('paletteArray', paletteArray);
+		.find('.palette-color')
+	console.log('paletteArray', paletteArray)
 
 	paletteArray.each((i, color) => {
-		const hex = $(color).attr('color');
-		const topPalette = $('.color-card')[i];
-		const hexText = $('.hex-code')[i];
-		$(topPalette).css('backgroundColor', hex);
-		$(hexText).text(hex);
-	});
+		const hex = $(color).attr('color')
+		const topPalette = $('.color-card')[i]
+		const hexText = $('.hex-code')[i]
+		$(topPalette).css('backgroundColor', hex)
+		$(hexText).text(hex)
+	})
 }
